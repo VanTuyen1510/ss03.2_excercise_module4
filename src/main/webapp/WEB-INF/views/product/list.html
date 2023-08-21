@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List Product</title>
+</head>
+<body>
+<form method="post" action="/search">
+    <input type="text" name="search" placeholder="name">
+    <span><input type="submit" value="SEARCH"></span>
+</form>
+<a th:href="@{/create}">Create new Product</a>
+<table border="1" cellpadding="2" cellspacing="5">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>description</th>
+        <th>producer</th>
+        <th>TypeProduct</th>
+        <th>Detail</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+
+    <!--  int id, String name, double price, String description, String producer, List<String> typeOfProduct  /-->
+    <tr th:each="p : ${products}" th:object="${p}">
+        <td th:text="*{id}"></td>
+        <td th:text="*{name}"></td>
+        <td th:text="*{price}"></td>
+        <td th:text="*{description}"></td>
+        <td th:text="*{producer}"></td>
+        <td th:text="*{displayTypeProduct()}"></td>
+        <td>
+            <a th:href="@{/detail(id=*{id})}">Detail</a>
+        </td>
+        <td>
+            <a th:href="@{/update(id=*{id})}">Update</a>
+        </td>
+        <td>
+            <a th:href="@{/delete(id=*{id})}">Delete</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

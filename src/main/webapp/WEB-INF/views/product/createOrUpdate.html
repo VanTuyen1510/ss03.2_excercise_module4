@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Or Update</title>
+</head>
+<body>
+<a th:href="@{/list}">Back to list Product</a>
+<form method="post" action="/createOrUpdate" th:object="${product}">
+
+    <!--    int id, String name, double price, String description, String producer, List<String> typeOfProduct-->
+    <table>
+        <tr>
+            <td>ID</td>
+            <td th:if="${action == 'create'}">
+                <input type="text" th:field="*{id}"/>
+            </td>
+            <td th:if="${action == 'update'}">
+                <span th:text="*{id}"></span>
+                <input type="text" th:field="*{id}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td>
+              <input type="text" th:field = "*{name}">
+            </td>
+        </tr>
+        <tr>
+            <td>Price</td>
+            <td>
+                <input type="text" th:field = "*{price}">
+            </td>
+        </tr>
+        <tr>
+            <td>Description</td>
+            <td>
+                <input type="text" th:field = "*{description}">
+            </td>
+        </tr>
+        <tr>
+            <td>Producer</td>
+            <td>
+                <input type="text" th:field = "*{producer}">
+            </td>
+        </tr>
+        <tr>
+            <td>TypeOfProduct</td>
+            <td>
+                <span th:each="p : ${typeOfProduct}">
+                    <input type="checkbox" th:field="*{typeOfProduct}" th:value="${p}" th:id="${p}">
+                    <label th:text="${p}" th:for="${p}"></label>
+                </span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Create Or Update">
+            </td>
+        </tr>
+    </table>
+    <input type="hidden" name="action" th:value="${action}">
+</form>
+</body>
+</html>
